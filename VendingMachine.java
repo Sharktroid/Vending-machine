@@ -3,24 +3,41 @@ import java.util.Scanner;
 
 
 public class VendingMachine {
-    private Hashtable<String, Double> snacks;
-    private static Scanner scan;
-    private static String snackChoice;
-
-    public VendingMachine() {
-        scan =  new Scanner(System.in);
-        snackChoice = "";
-        snacks = new Hashtable<String, Double>();
+    // Snacks are located here so they can be accessed by a static function
+    public static Hashtable<String, Double> getSnacks() {
+        Hashtable<String, Double> snacks = new Hashtable<String, Double>();
         snacks.put("Doritos", 2.24);
         snacks.put("Oreo", 2.49);
         snacks.put("M&M's", 1.99);
         snacks.put("Lay's", 3.24);
         snacks.put("Cheetos", 2.99);
+        return snacks;
     }
+
+    public static Boolean isSnack(String snack) {
+        // Checks if the string is a valid snack
+        // Returns true if it is, false if it is not
+        return getSnacks().containsKey(snack);
+    }
+
+    public static Double getSnackCost(String snack) {
+        // Returns the cost of the inputted snack
+        return getSnacks().get(snack);
+    }
+
     public static void main(String[] args) {
+        Scanner scan = new Scanner(System.in);
         System.out.println("We're happy you decided to use our Vending Machine today!");
-        System.out.println("Please select a snack to buy:");
-        snackChoice = scan.next();
-        //I have no idea what a Hashtable is. Sorry :(
+        System.out.print("Please select a snack to buy: ");
+        String snackChoice = scan.nextLine();
+
+        if (isSnack(snackChoice)) {
+            System.out.println(String.format("That snack costs %s", getSnackCost(snackChoice).toString()));
+        }
+        else {
+            System.out.println("Invalid Snack");
+        }
+
+        scan.close();
     }
 }
