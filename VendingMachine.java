@@ -12,7 +12,11 @@ public class VendingMachine {
         snacks.put("Lay's", 3.24);
         snacks.put("Cheetos", 2.99);
         return snacks;
+    
     }
+
+    //Holds the money that the user inserted into the machine
+    public static int moneyInserted = 0;
 
     public static Boolean isSnack(String snack) {
         // Checks if the string is a valid snack
@@ -26,10 +30,17 @@ public class VendingMachine {
     }
 
     public static void main(String[] args) {
+        //Gives user directions on picking a snack
         Scanner scan = new Scanner(System.in);
         System.out.println("We're happy you decided to use our Vending Machine today!");
         System.out.print("Please select a snack to buy: ");
         String snackChoice = scan.nextLine();
+
+        //Asks user for an amount of dollar bills
+        System.out.println("How many dollar bills would you like to insert?");
+        moneyInserted = scan.nextInt();
+
+
 
         if (isSnack(snackChoice)) {
             System.out.println(String.format("That snack costs %s", getSnackCost(snackChoice).toString()));
