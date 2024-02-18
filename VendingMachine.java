@@ -12,11 +12,8 @@ public class VendingMachine {
         snacks.put("Lay's", 3.24);
         snacks.put("Cheetos", 2.99);
         return snacks;
-    
-    }
 
-    //Holds the money that the user inserted into the machine
-    public static int moneyInserted = 0;
+    }
 
     public static Boolean isSnack(String snack) {
         // Checks if the string is a valid snack
@@ -36,14 +33,22 @@ public class VendingMachine {
         System.out.print("Please select a snack to buy: ");
         String snackChoice = scan.nextLine();
 
-        //Asks user for an amount of dollar bills
-        System.out.println("How many dollar bills would you like to insert?");
-        moneyInserted = scan.nextInt();
-
-
-
         if (isSnack(snackChoice)) {
-            System.out.println(String.format("That snack costs %s", getSnackCost(snackChoice).toString()));
+            Double snackCost = getSnackCost(snackChoice);
+            System.out.println(String.format("That snack costs %s", snackCost.toString()));
+
+            //Asks user for an amount of dollar bills
+            System.out.println("How many dollar bills would you like to insert?");
+
+            //Holds the money that the user inserted into the machine
+            Double moneyInserted = Double.valueOf(scan.nextInt());
+            if (moneyInserted < snackCost) {
+                System.out.println("Not enough");
+            }
+            else if (moneyInserted > snackCost) {
+                Double difference = Double.valueOf(Math.round((moneyInserted - snackCost) * 100))/100;
+                System.out.println(String.format("You gave too much. Here's the change: %s", difference.toString()));
+            }
         }
         else {
             System.out.println("Invalid Snack");
