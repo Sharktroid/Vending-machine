@@ -27,6 +27,7 @@ public class VendingMachine {
     }
 
     public static void main(String[] args) {
+        double moneyInserted = 0.0;
         //Gives user directions on picking a snack
         Scanner scan = new Scanner(System.in);
         System.out.println("We're happy you decided to use our Vending Machine today!");
@@ -41,7 +42,7 @@ public class VendingMachine {
             System.out.println("How many dollar bills would you like to insert?");
 
             //Holds the money that the user inserted into the machine
-            Double moneyInserted = Double.valueOf(scan.nextInt());
+            moneyInserted = Double.valueOf(scan.nextInt());
             if (moneyInserted < snackCost) {
                 System.out.println("Not enough");
             }
@@ -53,6 +54,16 @@ public class VendingMachine {
         else {
             System.out.println("Invalid Snack");
         }
+
+        System.out.println("Confirm transaction? type 'yes' or 'no' ");
+        if(scan.nextLine().toUpperCase().equals("yes")){
+            
+            // departure message
+
+        }else if(scan.nextLine().toUpperCase().equals("no")){
+            System.out.println(moneyInserted + " refunded.");
+        }
+
 
         scan.close();
     }
