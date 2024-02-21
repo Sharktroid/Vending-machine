@@ -6,11 +6,11 @@ public class VendingMachine {
     // Snacks are located here so they can be accessed by a static function
     public static Hashtable<String, Double> getSnacks() {
         Hashtable<String, Double> snacks = new Hashtable<String, Double>();
-        snacks.put("Doritos", 2.24);
-        snacks.put("Oreo", 2.49);
-        snacks.put("M&M's", 1.99);
-        snacks.put("Lay's", 3.24);
-        snacks.put("Cheetos", 2.99);
+        snacks.put("Doritos".toLowerCase(), 2.24);
+        snacks.put("Oreos".toLowerCase(), 2.49);
+        snacks.put("M&M's".toLowerCase(), 1.99);
+        snacks.put("Lay's".toLowerCase(), 3.24);
+        snacks.put("Cheetos".toLowerCase(), 2.99);
         return snacks;
 
     }
@@ -18,12 +18,12 @@ public class VendingMachine {
     public static Boolean isSnack(String snack) {
         // Checks if the string is a valid snack
         // Returns true if it is, false if it is not
-        return getSnacks().containsKey(snack);
+        return getSnacks().containsKey(snack.toLowerCase());
     }
 
     public static Double getSnackCost(String snack) {
         // Returns the cost of the inputted snack
-        return getSnacks().get(snack);
+        return getSnacks().get(snack.toLowerCase());
     }
 
     public static void main(String[] args) {
@@ -36,7 +36,7 @@ public class VendingMachine {
 
         if (isSnack(snackChoice)) {
             Double snackCost = getSnackCost(snackChoice);
-            System.out.println(String.format("That snack costs %s", snackCost.toString()));
+            System.out.println(String.format("That snack costs $%s", snackCost.toString()));
 
             //Asks user for an amount of dollar bills
             System.out.println("How many dollar bills would you like to insert?");
@@ -48,22 +48,20 @@ public class VendingMachine {
             }
             else if (moneyInserted > snackCost) {
                 Double difference = Double.valueOf(Math.round((moneyInserted - snackCost) * 100))/100;
-                System.out.println(String.format("You gave too much. Here's the change: %s", difference.toString()));
+                System.out.println(String.format("You gave too much. Here's the change: $%s", difference.toString()));
+            }
+            scan.nextLine();
+            System.out.println("Confirm transaction? type 'yes' or 'no'");
+            if(scan.nextLine().toUpperCase().equals("YES")) {
+                System.out.println("Thank you for your purchase of " + snackChoice);
+            }
+            else {
+                System.out.println(String.format("$%s refunded.", snackCost.toString()));
             }
         }
         else {
             System.out.println("Invalid Snack");
         }
-
-        System.out.println("Confirm transaction? type 'yes' or 'no' ");
-        if(scan.nextLine().toUpperCase().equals("yes")){
-            
-            // departure message
-
-        }else if(scan.nextLine().toUpperCase().equals("no")){
-            System.out.println(moneyInserted + " refunded.");
-        }
-
 
         scan.close();
     }
